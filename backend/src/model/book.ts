@@ -28,6 +28,7 @@ Book.init(
         bookName: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique:true,
         },
         author: {
             type: DataTypes.STRING,
@@ -52,6 +53,7 @@ Book.init(
         image: {
             type: DataTypes.STRING, // Store image file path
             allowNull: true,
+            unique:true,
         },
     },
     {
