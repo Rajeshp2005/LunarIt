@@ -72,9 +72,9 @@ const EditBook = () => {
   return (
     <>
    
-    <div className="p-4 py-28 ">
+    <div className="p-4 dark:bg-black bg-white dark:text-slate-300 py-28 ">
       <h1 className="text-2xl font-bold mb-4">Edit Book</h1>
-      <form onSubmit={handleSubmit} className="bg-white dark:bg-slate-800 dark:text-slate-800 shadow-lg p-6 rounded" encType="multipart/form-data">
+      <form onSubmit={handleSubmit} className="bg-slate-400 dark:bg-slate-600 dark:text-slate-800 shadow-lg p-6 rounded" encType="multipart/form-data">
         <input
           type="text"
           name="bookName"
@@ -105,7 +105,7 @@ const EditBook = () => {
             type="file"
             name="image"
             onChange={handleFileChange}
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
+            className="w-full p-2 mb-4 border border-gray-300 rounded text-slate-200"
           />
           {book.image && !file && (
             <img src={book.image} alt="Current book cover" className="w-32 h-32 object-cover mt-2" />
@@ -117,7 +117,7 @@ const EditBook = () => {
           value={book.price}
           onChange={handleChange}
           placeholder="Price"
-          className="w-full p-2 mb-4 border border-gray-300 rounded"
+          className="w-full p-2 mb-4 border border-gray-300 rounded "
         />
         <input
           type="text"

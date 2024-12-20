@@ -81,7 +81,7 @@ const AddBook = () => {
     <>
    
     <div className="p-4 dark:bg-black bg-white dark:text-slate-800 py-28">
-      <h1 className="text-2xl font-bold mb-4">{bookId ? 'Edit Book' : 'Add Book'}</h1>
+      <h1 className="text-2xl font-bold mb-4 dark:text-slate-300">{bookId ? 'Edit Book' : 'Add Book'}</h1>
       <form onSubmit={handleSubmit} className=" dark:bg-slate-600 bg-slate-400 shadow-lg p-6 rounded" encType="multipart/form-data">
         <input
           type="text"
