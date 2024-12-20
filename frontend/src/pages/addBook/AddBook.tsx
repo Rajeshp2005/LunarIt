@@ -139,7 +139,7 @@ const AddBook = () => {
             type="file"
             name="image"
             onChange={handleFileChange}
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
+            className="w-full p-2 mb-4 border border-gray-300 rounded text-slate-200"
           />
           {book.image && !file && <img src={`http://localhost:3000/${book.image}`} alt="Current book cover" className="w-32 h-32 object-cover mt-2" />}
         </div>
