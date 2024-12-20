@@ -13,7 +13,7 @@ const AddBook = () => {
     description: '',
     isbnNumber: '',
   });
-  const [file, setFile] = useState<File | null>(null); // to handle the uploaded file
+  const [file, setFile] = useState<File | null>(null); 
   const navigate = useNavigate();
   const { bookId } = useParams(); // For updating the book based on bookId
 
@@ -132,7 +132,7 @@ const AddBook = () => {
           className="w-full p-2 mb-4 border border-gray-300 rounded"
         />
         
-        {/* Image upload input */}
+     
         <div className="mb-4">
           <label className="block text-sm font-semibold">Upload Image</label>
           <input

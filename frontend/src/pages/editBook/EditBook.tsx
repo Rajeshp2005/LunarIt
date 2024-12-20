@@ -15,7 +15,7 @@ const EditBook = () => {
     description: '',
     isbnNumber: '',
   });
-  const [file, setFile] = useState<File | null>(null); // state for the image file
+  const [file, setFile] = useState<File | null>(null); 
 
   useEffect(() => {
     const fetchBook = async () => {
@@ -45,7 +45,7 @@ const EditBook = () => {
     e.preventDefault();
     const formData = new FormData();
 
-    // Append book details to FormData
+ 
     formData.append('bookName', book.bookName);
     formData.append('author', book.author);
     formData.append('publishedDate', book.publishedDate);

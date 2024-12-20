@@ -32,7 +32,7 @@ const SingleBook = () => {
   }, [id]);
 
   const handleEditClick = () => {
-    navigate(`/editBook/${id}`);  // Navigate to the EditBook page for the current book
+    navigate(`/editBook/${id}`);  
   };
 
   
