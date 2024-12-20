@@ -20,7 +20,7 @@ class Book extends Model {
     public price!: number;
     public publishedDate!: string;
     public isbnNumber!: string;
-    public image!: string; // Store the image file path here
+    public image!: string; 
 }
 
 Book.init(
@@ -51,9 +51,9 @@ Book.init(
             allowNull: false,
         },
         image: {
-            type: DataTypes.STRING, // Store image file path
+            type: DataTypes.STRING, 
             allowNull: true,
-            unique:true,
+            
         },
     },
     {
