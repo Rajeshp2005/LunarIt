@@ -6,6 +6,12 @@ const sequelize = new Sequelize ({
   password:process.env.DB_PASSWORD,
   host:process.env.DB_HOST,
   port:Number(process.env.DB_PORT),
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000, // Max time in ms a connection can be idle before error
+    idle: 10000,   // Max time in ms a connection can be inactive before release
+  },
   models:[__dirname +"/models"] 
 
 })

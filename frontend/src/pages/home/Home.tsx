@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { api } from '../../services/api';
 import { Link } from 'react-router-dom';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 
 
 interface Book {
@@ -48,21 +50,30 @@ const Home = () => {
       }
     }
   };
+  useGSAP(()=>{
+    gsap.from(".gsap",{
+      y:200,
+      opacity:0,
+      duration:2,
+     
+      
+    })
+  })
 
 
   return (
     <>
     
-    <div className="p-4 py-28">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 dark:text-slate-300">
+    <div className="p-4 py-28 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 dark:text-slate-300 gsap">
         {books.map(book => (
           <div key={book.id} className="bg-slate-100 dark:bg-gray-800 shadow-lg rounded-lg p-4">
             <img
-              src={book.image || 'https://plus.unsplash.com/premium_photo-1733864822205-f521d24b1319?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D'} // Fallback image
+              src={book.image || 'https://plus.unsplash.com/premium_photo-1733864822205-f521d24b1319?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D'} 
               alt={book.bookName}
               className="w-full h-64 object-cover rounded"
               onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                e.currentTarget.src = ''; // Use fallback if image is broken
+                e.currentTarget.src = ''; 
               }}
             />
             <h2 className="font-bold text-xl mt-2">{book.bookName}</h2>

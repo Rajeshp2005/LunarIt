@@ -56,6 +56,7 @@ const EditBook = () => {
     // Append the selected file if it exists
     if (file) {
       formData.append('image', file);
+      
     } else if (book.image) {
       formData.append('image', book.image); // in case the image is not updated but it's an existing book
     }

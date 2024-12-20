@@ -38,21 +38,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
+const multer_1 = __importDefault(require("multer"));
 const PORT = 3000;
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 require("./database/connection");
-const blogRoutes = require('./routes/blogRoutes');
+const bookRoutes = require('./routes/bookRoutes');
 const cors_1 = __importDefault(require("cors"));
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({
+    origin: "*",
+}));
 app.use(express_1.default.json());
+const upload = (0, multer_1.default)({ dest: "uploads/" });
 app.get("/", (req, res) => {
     res.send("hello world");
 });
-app.get("/", (req, res) => {
-    res.send("Hello!");
-});
-app.use('/api/', blogRoutes);
+app.use('/bookapi/', bookRoutes);
+app.use('/uploads', express_1.default.static("uploads"));
 app.listen(PORT, () => {
     console.log("server has started at port", PORT);
 });
