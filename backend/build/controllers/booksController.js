@@ -33,14 +33,12 @@ const storage = multer_1.default.diskStorage({
     }
 });
 const upload = (0, multer_1.default)({ storage: storage });
-// Create Book with Image
+// Create Book 
 const createBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    // Upload image file
     upload.single('image')(req, res, (err) => __awaiter(void 0, void 0, void 0, function* () {
         if (err) {
             return res.status(400).json({ message: 'Error uploading file' });
         }
-        // Get the file path from the uploaded file
         let fileName;
         if (!req.file) {
             fileName =
@@ -49,10 +47,8 @@ const createBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         else {
             fileName = `http://localhost:3000/uploads/${req.file.filename}`;
         }
-        // Destructure other book fields from the request body
         const { bookName, author, description, price, publishedDate, isbnNumber } = req.body;
         try {
-            // Create the book in the database with image path
             const book = yield book_1.default.create({
                 bookName,
                 author,
@@ -60,9 +56,8 @@ const createBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 price,
                 publishedDate,
                 isbnNumber,
-                image: fileName, // Store the image path in the database
+                image: fileName,
             });
-            // Respond with the created book
             res.status(201).json(book);
         }
         catch (err) {
@@ -71,37 +66,34 @@ const createBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }));
 });
 exports.createBook = createBook;
-// Update Book with Image (including image update)
+// Update Book 
 const updateBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const book = yield book_1.default.findByPk(req.params.id);
     if (!book) {
         return res.status(404).json({ message: 'Book not found' });
     }
-    // Upload image (same as in createBook)
     upload.single('image')(req, res, (err) => __awaiter(void 0, void 0, void 0, function* () {
         if (err) {
             return res.status(400).json({ message: 'Error uploading file' });
         }
-        // Destructure other book fields from the request body
         const { bookName, author, description, price, publishedDate, isbnNumber } = req.body;
-        // If a new image is uploaded, remove the old image
         let imagePath = book.image; // Keep the old image path by default
         if (req.file) {
-            // Delete the old image file from the server (if any)
-            if (book.image && fs_1.default.existsSync(book.image)) {
-                fs_1.default.unlinkSync(book.image); // Delete the old image file
+            if (book.image && book.image.startsWith('http://localhost:3000/')) {
+                const localPath = book.image.replace('http://localhost:3000/', '');
+                if (fs_1.default.existsSync(localPath)) {
+                    fs_1.default.unlinkSync(localPath); // Delete the old image file
+                }
             }
-            // Set the new image path (convert to URL like in createBook)
             imagePath = `http://localhost:3000/uploads/${req.file.filename}`; // New image URL
         }
-        // Update the book's details
         book.bookName = bookName || book.bookName;
         book.author = author || book.author;
         book.description = description || book.description;
         book.price = price || book.price;
         book.publishedDate = publishedDate || book.publishedDate;
         book.isbnNumber = isbnNumber || book.isbnNumber;
-        book.image = imagePath; // Update the image path if changed
+        book.image = imagePath;
         try {
             const updatedBook = yield book.save();
             res.status(202).json(updatedBook);
@@ -112,18 +104,19 @@ const updateBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }));
 });
 exports.updateBook = updateBook;
-// Delete Book (with image deletion)
+// Delete Book 
 const deleteBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const book = yield book_1.default.findByPk(req.params.id);
     if (!book) {
         return res.status(404).json({ message: 'Book not found' });
     }
     try {
-        // Remove the associated image file from the server
-        if (book.image && fs_1.default.existsSync(book.image)) {
-            fs_1.default.unlinkSync(book.image); // Delete the image file from the server
+        if (book.image && book.image.startsWith('http://localhost:3000/')) {
+            const localPath = book.image.replace('http://localhost:3000/', '');
+            if (fs_1.default.existsSync(localPath)) {
+                fs_1.default.unlinkSync(localPath); // Delete the image file
+            }
         }
-        // Delete the book from the database
         yield book.destroy();
         res.status(200).json({ message: 'Book and associated image deleted successfully' });
     }
