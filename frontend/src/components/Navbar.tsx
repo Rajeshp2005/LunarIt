@@ -2,12 +2,23 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Switcher from "./toggle/Switcher";
 import { HomeIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+
 
 const Navbar: React.FC = () => {
+  useGSAP(()=>{
+    gsap.from("nav",{
+      opacity:0,
+      duration:2,
+      delay:1
+    })
+  })
+
   return (
     <>
-      <nav className="bg-slate-300 dark:bg-gray-800 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <nav className="bg-slate-200  dark:bg-gray-800 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
           <div className="flex items-center space-x-3 rtl:space-x-reverse">
             
             <img

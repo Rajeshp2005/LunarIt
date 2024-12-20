@@ -52,11 +52,10 @@ const Home = () => {
   };
   useGSAP(()=>{
     gsap.from(".gsap",{
-      y:200,
+      y:100,
       opacity:0,
       duration:2,
      
-      
     })
   })
 

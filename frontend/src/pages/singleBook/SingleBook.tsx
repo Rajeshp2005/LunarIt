@@ -48,7 +48,7 @@ const SingleBook = () => {
           <img 
             src={book.image || 'https://plus.unsplash.com/premium_photo-1733864822205-f521d24b1319?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D'} 
             alt={book.bookName}
-            className="w-full h-60 object-cover mb-4"
+            className="w-full h-[850px] object-fill mb-4"
             onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
               e.currentTarget.src = 'img'; 
             }}
